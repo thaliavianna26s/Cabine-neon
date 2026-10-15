@@ -25,6 +25,7 @@ video{transform:scaleX(-1)}
 .frame:after{right:-3px;bottom:-3px;border-width:0 4px 4px 0;border-radius:0 0 15px}
 .corner{position:absolute;inset:auto 0 4%;text-align:center;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(1.15rem,5vw,2rem);color:#fff;text-shadow:0 0 5px var(--pink),0 0 14px var(--pink),0 0 22px var(--purple)}
 .spark{position:absolute;color:var(--blue);font-size:1.5rem;text-shadow:0 0 10px var(--blue)}
+.neon-object{position:absolute;z-index:3;pointer-events:none;font-size:clamp(1.35rem,6vw,2.3rem);line-height:1;filter:drop-shadow(0 0 5px currentColor) drop-shadow(0 0 10px currentColor)}
 .s1{top:7%;left:8%}.s2{top:10%;right:8%;color:var(--pink)}.s3{bottom:15%;right:9%;color:var(--pink)}
 .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
 button,a.btn{font:inherit;font-weight:750;text-align:center;text-decoration:none;cursor:pointer;border:0;border-radius:14px;padding:14px 12px;color:#fff;background:linear-gradient(110deg,#f725b9,#8b35f0);box-shadow:0 0 14px #ff38c755}
@@ -49,6 +50,7 @@ footer{text-align:center;color:#a997b9;font-size:.8rem;margin-top:20px}
 <canvas id="canvas" hidden></canvas>
 <div class="frame" id="frame">
 <span class="spark s1">✦</span><span class="spark s2">♥</span><span class="spark s3">✦</span><span class="spark" style="top:23%;right:8%;color:#ffe600">★</span><span class="spark" style="bottom:27%;left:8%;color:#ff38c7">✧</span><span class="spark" style="top:47%;left:7%;color:#ffe600">⚡</span><span class="spark" style="top:48%;right:7%;color:#42e8ff">✦</span>
+<span class="neon-object" style="top:2%;left:4%;color:#24e8ff">🎧</span><span class="neon-object" style="top:2%;right:4%;color:#ff2ac3">📸</span><span class="neon-object" style="top:28%;left:1%;color:#ffe600">⚡</span><span class="neon-object" style="top:29%;right:1%;color:#9b36ff">💜</span><span class="neon-object" style="bottom:17%;left:2%;color:#ff2ac3">✌️</span><span class="neon-object" style="bottom:17%;right:2%;color:#24e8ff">🎵</span><span class="neon-object" style="bottom:2%;left:6%;color:#ffe600">★</span><span class="neon-object" style="bottom:2%;right:6%;color:#ff2ac3">🎧</span>
 <div class="corner">Lunna faz 12</div>
 </div>
 </div>
@@ -103,6 +105,11 @@ capture.addEventListener('click',()=>{
  function neonText(txt,px,py,size,color){ctx.save();ctx.font=`900 ${Math.round(size)}px system-ui,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=w*.035;ctx.fillText(txt,px,py);ctx.restore();}
  neonText('✦',w*.13,h*.14,w*.075,'#ffe600');neonText('♥',w*.86,h*.18,w*.075,'#ff2ac3');
  neonText('★',w*.13,h*.76,w*.07,'#24e8ff');neonText('✧',w*.87,h*.73,w*.08,'#9b36ff');
+ // Extra neon accessories placed only along the edges, leaving the face area clear
+ neonText('🎧',w*.13,h*.055,w*.095,'#24e8ff');neonText('📸',w*.87,h*.055,w*.09,'#ff2ac3');
+ neonText('⚡',w*.075,h*.39,w*.09,'#ffe600');neonText('💜',w*.925,h*.40,w*.085,'#9b36ff');
+ neonText('✌️',w*.10,h*.84,w*.085,'#ff2ac3');neonText('♫',w*.90,h*.84,w*.09,'#24e8ff');
+ neonText('🎧',w*.15,h*.93,w*.085,'#ff2ac3');neonText('★',w*.85,h*.93,w*.08,'#ffe600');
  // Footer glow and caption
  const band=h*.115;const grad=ctx.createLinearGradient(0,h-band,0,h);grad.addColorStop(0,'rgba(12,4,24,0)');grad.addColorStop(.25,'rgba(12,4,24,.72)');grad.addColorStop(1,'rgba(12,4,24,.92)');
  ctx.fillStyle=grad;ctx.fillRect(0,h-band,w,band);
