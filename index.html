@@ -16,8 +16,10 @@ h1{font-size:clamp(2rem,9vw,3.5rem);line-height:1;margin:10px 0;color:#fff;text-
 .subtitle{color:#f5dfff;margin:12px 0 0}
 .stage{position:relative;width:100%;aspect-ratio:3/4;max-height:72vh;background:#05020b;border-radius:24px;overflow:hidden;border:3px solid transparent;background-image:linear-gradient(#05020b,#05020b),linear-gradient(135deg,#ff2ac3,#24e8ff,#ffe600,#9b36ff,#ff2ac3);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 0 14px #ff2ac3,0 0 32px #24e8ff66,inset 0 0 22px #9b36ff44}
 video,canvas{position:absolute;width:100%;height:100%;inset:0;object-fit:cover}
+video{z-index:1}
+.frame{z-index:2}
 video{transform:scaleX(-1)}
-.frame{position:absolute;inset:3.5%;pointer-events:none;border:4px solid transparent;border-radius:20px;background:linear-gradient(#05020b00,#05020b00) padding-box,linear-gradient(135deg,#ff2ac3,#24e8ff,#ffe600,#9b36ff,#ff2ac3) border-box;box-shadow:inset 0 0 18px #ff2ac388,0 0 16px #24e8ff88}
+.frame{position:absolute;inset:3.5%;pointer-events:none;border:4px solid #ff2ac3;border-radius:20px;background:transparent;box-shadow:inset 0 0 10px #ff2ac355,0 0 10px #24e8ff88}
 .frame:before,.frame:after{content:"";position:absolute;width:30%;height:13%;border-color:var(--blue);border-style:solid;filter:drop-shadow(0 0 7px var(--blue))}
 .frame:before{left:-3px;top:-3px;border-width:4px 0 0 4px;border-radius:15px 0 0}
 .frame:after{right:-3px;bottom:-3px;border-width:0 4px 4px 0;border-radius:0 0 15px}
