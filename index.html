@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090313">
+<title>Cabine Neon da Lunna — 12 anos</title>
+<style>
+:root{--pink:#ff2ac3;--purple:#9b36ff;--blue:#24e8ff;--yellow:#ffe600;--bg:#05020b}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#28103c 0,#090313 55%,#030208 100%);color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+main{width:min(100%,720px);margin:auto;padding:20px 14px 32px}
+header{text-align:center;padding:10px 0 18px}
+.kicker{letter-spacing:.28em;font-size:.72rem;color:var(--blue);text-transform:uppercase}
+h1{font-size:clamp(2rem,9vw,3.5rem);line-height:1;margin:10px 0;color:#fff;text-shadow:0 0 8px var(--pink),0 0 24px var(--pink),0 0 42px var(--purple)}
+.subtitle{color:#f5dfff;margin:12px 0 0}
+.stage{position:relative;width:100%;aspect-ratio:3/4;max-height:72vh;background:#05020b;border-radius:24px;overflow:hidden;border:3px solid transparent;background-image:linear-gradient(#05020b,#05020b),linear-gradient(135deg,#ff2ac3,#24e8ff,#ffe600,#9b36ff,#ff2ac3);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 0 14px #ff2ac3,0 0 32px #24e8ff66,inset 0 0 22px #9b36ff44}
+video,canvas{position:absolute;width:100%;height:100%;inset:0;object-fit:cover}
+video{transform:scaleX(-1)}
+.frame{position:absolute;inset:3.5%;pointer-events:none;border:4px solid transparent;border-radius:20px;background:linear-gradient(#05020b00,#05020b00) padding-box,linear-gradient(135deg,#ff2ac3,#24e8ff,#ffe600,#9b36ff,#ff2ac3) border-box;box-shadow:inset 0 0 18px #ff2ac388,0 0 16px #24e8ff88}
+.frame:before,.frame:after{content:"";position:absolute;width:30%;height:13%;border-color:var(--blue);border-style:solid;filter:drop-shadow(0 0 7px var(--blue))}
+.frame:before{left:-3px;top:-3px;border-width:4px 0 0 4px;border-radius:15px 0 0}
+.frame:after{right:-3px;bottom:-3px;border-width:0 4px 4px 0;border-radius:0 0 15px}
+.corner{position:absolute;inset:auto 0 4%;text-align:center;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(1.15rem,5vw,2rem);color:#fff;text-shadow:0 0 5px var(--pink),0 0 14px var(--pink),0 0 22px var(--purple)}
+.spark{position:absolute;color:var(--blue);font-size:1.5rem;text-shadow:0 0 10px var(--blue)}
+.s1{top:7%;left:8%}.s2{top:10%;right:8%;color:var(--pink)}.s3{bottom:15%;right:9%;color:var(--pink)}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
+button,a.btn{font:inherit;font-weight:750;text-align:center;text-decoration:none;cursor:pointer;border:0;border-radius:14px;padding:14px 12px;color:#fff;background:linear-gradient(110deg,#f725b9,#8b35f0);box-shadow:0 0 14px #ff38c755}
+button.secondary,a.secondary{background:#20132e;border:1px solid #74408e;box-shadow:none}
+button:disabled{opacity:.45;cursor:not-allowed}
+.note{font-size:.9rem;line-height:1.5;color:#dfcce9;text-align:center}
+.status{min-height:1.5em;color:var(--blue);text-align:center;font-size:.9rem}
+#result{display:none;width:100%;margin-top:12px;border-radius:16px;border:1px solid var(--purple)}
+footer{text-align:center;color:#a997b9;font-size:.8rem;margin-top:20px}
+@media(min-width:600px){main{padding-top:28px}.stage{max-height:680px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="kicker">✨ Uma noite brilhante ✨</div>
+<h1>LUNNA <span style="color:#42e8ff">12</span></h1>
+<p class="subtitle">CABINE DE FOTOS NEON · Faça sua pose!</p>
+</header>
+<div class="stage" id="stage">
+<video id="video" autoplay playsinline muted></video>
+<canvas id="canvas" hidden></canvas>
+<div class="frame" id="frame">
+<span class="spark s1">✦</span><span class="spark s2">♥</span><span class="spark s3">✦</span><span class="spark" style="top:23%;right:8%;color:#ffe600">★</span><span class="spark" style="bottom:27%;left:8%;color:#ff38c7">✧</span><span class="spark" style="top:47%;left:7%;color:#ffe600">⚡</span><span class="spark" style="top:48%;right:7%;color:#42e8ff">✦</span>
+<div class="corner">Lunna faz 12</div>
+</div>
+</div>
+<div class="controls">
+<button id="start">📸 Ativar câmera</button>
+<button id="capture" disabled>✨ Tirar foto</button>
+<button id="switch" class="secondary" disabled>🔄 Trocar câmera</button>
+<button id="retake" class="secondary" disabled>↩ Nova foto</button>
+</div>
+<div class="status" id="status" role="status">Toque em “Ativar câmera” e permita o acesso à câmera.</div>
+<img id="result" alt="Foto tirada na cabine neon da Lunna">
+<a id="download" class="btn" style="display:none;margin-top:10px" download="foto-neon-lunna.png">⬇ Salvar foto</a>
+<p class="note">Dica: permita o acesso à câmera quando o navegador perguntar. A foto é preparada no seu aparelho; ela não é enviada para este site.</p>
+<footer>Feito com brilho para celebrar os 12 anos da Lunna 💖</footer>
+</main>
+<script>
+(() => {
+const video=document.getElementById('video'), canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d'), start=document.getElementById('start'), capture=document.getElementById('capture');
+const sw=document.getElementById('switch'), retake=document.getElementById('retake'), status=document.getElementById('status');
+const result=document.getElementById('result'), download=document.getElementById('download'), frame=document.getElementById('frame');
+let stream=null, facing='user', photoTaken=false;
+function say(t){status.textContent=t}
+async function openCamera(){
+ if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){say('A câmera não está disponível. Abra o site pelo navegador atualizado e usando HTTPS.');return}
+ try{
+  if(stream) stream.getTracks().forEach(t=>t.stop());
+  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:false});
+  video.srcObject=stream; await video.play();
+  capture.disabled=false;sw.disabled=false;retake.disabled=true;
+  result.style.display='none';download.style.display='none';video.style.display='block';frame.style.display='block';
+  photoTaken=false;say('Câmera pronta! Faça sua pose e toque em “Tirar foto”.');
+ }catch(e){say(e.name==='NotAllowedError'?'Permita o acesso à câmera nas configurações do navegador e tente novamente.':'Não consegui abrir a câmera. Confira a permissão e tente novamente.')}
+}
+start.addEventListener('click',openCamera);
+sw.addEventListener('click',()=>{facing=facing==='user'?'environment':'user';openCamera()});
+capture.addEventListener('click',()=>{
+ if(!stream||!video.videoWidth)return;
+ const w=video.videoWidth,h=video.videoHeight;canvas.width=w;canvas.height=h;
+ ctx.save();if(facing==='user'){ctx.translate(w,0);ctx.scale(-1,1)}ctx.drawImage(video,0,0,w,h);ctx.restore();
+ const scale=w/Math.max(1,document.getElementById('stage').clientWidth);
+ ctx.save();ctx.strokeStyle='#ff38c7';ctx.lineWidth=Math.max(5,w*.008);ctx.shadowColor='#ff38c7';ctx.shadowBlur=w*.025;
+ const inset=w*.035, radius=w*.035;ctx.beginPath();ctx.roundRect(inset,inset,w-2*inset,h-2*inset,radius);ctx.stroke();ctx.restore();
+ // Multicolor neon corner accents
+ const colors=['#ff2ac3','#24e8ff','#ffe600','#9b36ff'];
+ const l=w*.27,t=h*.10,x=w*.035,y=h*.035;
+ colors.forEach((color,i)=>{ctx.save();ctx.strokeStyle=color;ctx.lineWidth=Math.max(6,w*.009);ctx.shadowColor=color;ctx.shadowBlur=w*.035;
+   const offset=i*w*.012;ctx.beginPath();
+   ctx.moveTo(x+l-offset,y+offset);ctx.lineTo(x+offset,y+offset);ctx.lineTo(x+offset,y+t-offset);
+   ctx.moveTo(w-x-l+offset,h-y-offset);ctx.lineTo(w-x-offset,h-y-offset);ctx.lineTo(w-x-offset,h-y-t+offset);ctx.stroke();ctx.restore();});
+ // Colorful glowing stars and hearts around the photo
+ function neonText(txt,px,py,size,color){ctx.save();ctx.font=`900 ${Math.round(size)}px system-ui,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=w*.035;ctx.fillText(txt,px,py);ctx.restore();}
+ neonText('✦',w*.13,h*.14,w*.075,'#ffe600');neonText('♥',w*.86,h*.18,w*.075,'#ff2ac3');
+ neonText('★',w*.13,h*.76,w*.07,'#24e8ff');neonText('✧',w*.87,h*.73,w*.08,'#9b36ff');
+ // Footer glow and caption
+ const band=h*.115;const grad=ctx.createLinearGradient(0,h-band,0,h);grad.addColorStop(0,'rgba(12,4,24,0)');grad.addColorStop(.25,'rgba(12,4,24,.72)');grad.addColorStop(1,'rgba(12,4,24,.92)');
+ ctx.fillStyle=grad;ctx.fillRect(0,h-band,w,band);
+ ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`900 ${Math.round(w*.064)}px system-ui,sans-serif`;ctx.fillStyle='#fff';ctx.shadowColor='#ff38c7';ctx.shadowBlur=w*.025;ctx.fillText('LUNNA FAZ 12',w/2,h-band*.48);ctx.restore();ctx.save();const underline=ctx.createLinearGradient(w*.25,0,w*.75,0);underline.addColorStop(0,'#ff2ac3');underline.addColorStop(.35,'#24e8ff');underline.addColorStop(.7,'#ffe600');underline.addColorStop(1,'#9b36ff');ctx.strokeStyle=underline;ctx.lineWidth=Math.max(5,w*.008);ctx.shadowColor='#ff2ac3';ctx.shadowBlur=w*.02;ctx.beginPath();ctx.moveTo(w*.28,h-band*.12);ctx.lineTo(w*.72,h-band*.12);ctx.stroke();ctx.restore();
+ const url=canvas.toDataURL('image/png');result.src=url;result.style.display='block';download.href=url;download.style.display='block';
+ download.download='foto-neon-lunna.png';video.style.display='none';frame.style.display='none';capture.disabled=true;retake.disabled=false;photoTaken=true;say('Foto pronta! Toque em “Salvar foto” para guardar no aparelho.');
+});
+retake.addEventListener('click',()=>{if(stream){video.style.display='block';frame.style.display='block';result.style.display='none';download.style.display='none';capture.disabled=false;retake.disabled=true;say('Pode fazer outra pose!')}})
+})();
+</script>
+</body>
+</html>
